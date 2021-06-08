@@ -1,16 +1,16 @@
 import UIKit
 
 class StartViewController: UIViewController {
-    @IBOutlet var numberOfPeople: UITextField!
-    @IBOutlet var speedOfInfection: UITextField!
-    @IBOutlet var startButton: UIButton!
-    @IBOutlet var period: UITextField!
+    @IBOutlet weak var numberOfPeople: UITextField!
+    @IBOutlet weak var speedOfInfection: UITextField!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var period: UITextField!
     
     func changeEnable() {
         if let people = Int(numberOfPeople.text ?? ""),
            let speed = Int(speedOfInfection.text ?? ""),
            let time = Int(period.text ?? ""),
-           people >= 0 && speed >= 0  && time > 0 {
+           people >= 0 && speed >= 0  && time >= 0 {
             startButton?.isEnabled = true
         } else {
             startButton?.isEnabled = false
@@ -19,21 +19,25 @@ class StartViewController: UIViewController {
     
     
     @IBAction func buttonAction(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "CollectionVC") as! CollectionViewController
-        vc.people = createDataSource()
-        clearInput()
-        show(vc, sender: sender)
-    }
-    
-    func createDataSource() -> [Person] {
         guard let people = Int(numberOfPeople.text ?? ""),
               let speed = Int(speedOfInfection.text ?? ""),
               let time = Int(period.text ?? ""),
-              people >= 0 && speed >= 0  && time > 0 else {
-            return []
+              people >= 0 && speed >= 0  && time >= 0 else {
+            changeEnable()
+            return
         }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CollectionVC") as! CollectionViewController
+        let dataSource = createDataSource(people)
+        let virusWorker = VirusWorker()
+        vc.people = dataSource
+        virusWorker.setup(period: time, speed: speed)
+        vc.virusWorker = virusWorker
+        clearInput()
+        show(vc, sender: sender)
+    }
+
+    func createDataSource(_ people: Int) -> [Person] {
         var dataSource: [Person] = []
         for i in 0..<people {
             dataSource.append(Person(name: "\(i + 1)"))
@@ -47,7 +51,7 @@ class StartViewController: UIViewController {
         period.text?.removeAll()
     }
 
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
         changeEnable()
     }

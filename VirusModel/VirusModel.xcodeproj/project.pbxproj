@@ -16,6 +16,7 @@
 		207D4E17266A2CA7000491B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207D4E15266A2CA7000491B1 /* LaunchScreen.storyboard */; };
 		207D4E21266A4C6F000491B1 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D4E20266A4C6F000491B1 /* CollectionViewController.swift */; };
 		207D4E23266D104F000491B1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D4E22266D104F000491B1 /* Person.swift */; };
+		207F04A0266F946500639FC1 /* VirusWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207F049F266F946500639FC1 /* VirusWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		207D4E18266A2CA7000491B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		207D4E20266A4C6F000491B1 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		207D4E22266D104F000491B1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		207F049F266F946500639FC1 /* VirusWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirusWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		207D4E09266A2CA6000491B1 /* VirusModel */ = {
 			isa = PBXGroup;
 			children = (
+				207F049E266F938C00639FC1 /* CollectionViewGroup */,
 				207D4E0A266A2CA6000491B1 /* AppDelegate.swift */,
 				207D4E0C266A2CA6000491B1 /* SceneDelegate.swift */,
 				207D4E0E266A2CA6000491B1 /* StartViewController.swift */,
@@ -69,11 +72,19 @@
 				207D4E13266A2CA7000491B1 /* Assets.xcassets */,
 				207D4E15266A2CA7000491B1 /* LaunchScreen.storyboard */,
 				207D4E18266A2CA7000491B1 /* Info.plist */,
+				207F049F266F946500639FC1 /* VirusWorker.swift */,
+			);
+			path = VirusModel;
+			sourceTree = "<group>";
+		};
+		207F049E266F938C00639FC1 /* CollectionViewGroup */ = {
+			isa = PBXGroup;
+			children = (
 				207D4E20266A4C6F000491B1 /* CollectionViewController.swift */,
 				207D4E22266D104F000491B1 /* Person.swift */,
 				202B9829266E6366001F56C5 /* PersonCell.swift */,
 			);
-			path = VirusModel;
+			path = CollectionViewGroup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +160,7 @@
 				207D4E23266D104F000491B1 /* Person.swift in Sources */,
 				207D4E0F266A2CA6000491B1 /* StartViewController.swift in Sources */,
 				207D4E0B266A2CA6000491B1 /* AppDelegate.swift in Sources */,
+				207F04A0266F946500639FC1 /* VirusWorker.swift in Sources */,
 				207D4E0D266A2CA6000491B1 /* SceneDelegate.swift in Sources */,
 				207D4E21266A4C6F000491B1 /* CollectionViewController.swift in Sources */,
 				202B982A266E6366001F56C5 /* PersonCell.swift in Sources */,

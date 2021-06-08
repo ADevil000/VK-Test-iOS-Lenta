@@ -1,15 +1,18 @@
 import UIKit
 
 class CollectionViewController: UICollectionViewController {
+    
     enum Section {
         case main
     }
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Person>
     
-    private lazy var dataSource = makeDataSource()
+    public lazy var dataSource = makeDataSource()
     
     var people: [Person]!
+    var virusWorker: VirusWorker?
+    var cellsInRow: Int = 4
     
     func makeDataSource() -> DataSource {
       let dataSource = DataSource(
@@ -33,17 +36,28 @@ class CollectionViewController: UICollectionViewController {
             dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
         }
     }
-
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        virusWorker?.stop()
+        super.viewDidDisappear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.allowsSelection = true
         collectionView.isUserInteractionEnabled = true
         applySnapshot(animatingDifferences: false)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        virusWorker?.bindVC(vc: self)
+        virusWorker?.start()
+    }
 }
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let person = dataSource.itemIdentifier(for: indexPath) else {
           return
@@ -54,9 +68,8 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let side = collectionView.bounds.width / CGFloat(4)
+        let side = collectionView.bounds.width / CGFloat(cellsInRow)
         return CGSize(width: side - 10, height: side - 10)
     }
     
