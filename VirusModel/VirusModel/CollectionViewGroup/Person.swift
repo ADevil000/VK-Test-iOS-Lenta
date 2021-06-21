@@ -3,7 +3,7 @@ import Foundation
 
 class Person: Hashable {
     
-    static let serialQueue: DispatchQueue = DispatchQueue(label: "SerialQueue")
+    static let syncQueue: DispatchQueue = DispatchQueue(label: "SyncQueue")
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -20,14 +20,14 @@ class Person: Hashable {
     var healthy: Bool {
         get {
             let ans = SafeBool()
-            Person.serialQueue.sync {
+            Person.syncQueue.sync {
                 ans.value = threadSafeHealth.value
             }
             return ans.value
         }
         set {
-            Person.serialQueue.sync {
-                threadSafeHealth.value = newValue
+            Person.syncQueue.async(flags: .barrier) {
+                self.threadSafeHealth.value = newValue
             }
         }
     }
